@@ -278,11 +278,7 @@ http://localhost:8000
 
 🚀 **MissionBloom Dashboard**
 
-Add your deployed URL here after deployment:
-
-```text
-https://your-project-url.com
-```
+🔗 **Live Website:** https://missionbloom.vercel.app
 
 ---
 
