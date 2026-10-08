@@ -1,0 +1,7 @@
+{
+  "satellites": 16,
+  "queue": 3,
+  "queuePackets": ["44235 - Telemetry", "43013 - Telemetry", "41866 - Telemetry"],
+  "events": 10,
+  "priorityPackets": 4
+}

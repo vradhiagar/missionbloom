@@ -1,0 +1,1135 @@
+/* =========================================================
+   SOMAIYASAT — AUTONOMOUS MISSION CONTROL
+   DARK SCI-FI DASHBOARD
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #05090d;
+    color: #d9e5e9;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 245px;
+    height: 100vh;
+
+    background: #071016;
+    border-right: 1px solid #17262e;
+
+    padding: 24px 16px;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 5px 8px 28px;
+
+    border-bottom: 1px solid #17262e;
+}
+
+
+.logo-icon {
+    font-size: 30px;
+}
+
+
+.logo h1 {
+    color: #54e6c1;
+    font-size: 17px;
+    letter-spacing: 2px;
+}
+
+
+.logo span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #6e8089;
+
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+
+nav {
+    margin-top: 25px;
+}
+
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 13px 12px;
+
+    margin-bottom: 5px;
+
+    color: #84949d;
+
+    text-decoration: none;
+
+    border-radius: 7px;
+
+    font-size: 13px;
+
+    transition: 0.2s;
+}
+
+
+.nav-item span {
+    color: #536771;
+}
+
+
+.nav-item:hover,
+.nav-item.active {
+    background: #0d1c23;
+    color: #54e6c1;
+}
+
+
+.nav-item.active span {
+    color: #54e6c1;
+}
+
+
+.sidebar-status {
+    margin-top: auto;
+
+    padding: 13px;
+
+    background: #09171c;
+
+    border: 1px solid #172c32;
+
+    border-radius: 7px;
+
+    color: #54e6c1;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+
+.status-dot {
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    background: #54e6c1;
+
+    border-radius: 50%;
+
+    margin-right: 7px;
+
+    box-shadow: 0 0 8px #54e6c1;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+    margin-left: 245px;
+
+    padding: 25px 30px 40px;
+
+    max-width: 1700px;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 28px;
+
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid #17262e;
+}
+
+
+.eyebrow {
+    color: #536771;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+}
+
+
+.topbar h2 {
+    margin-top: 7px;
+
+    font-size: 26px;
+
+    font-weight: 500;
+
+    color: #edf7f7;
+}
+
+
+.mission-status {
+    color: #54e6c1;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   KPI CARDS
+========================================================= */
+
+.kpi-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 18px;
+}
+
+
+.kpi-card {
+    background: #081117;
+
+    border: 1px solid #17272f;
+
+    border-radius: 9px;
+
+    padding: 18px;
+
+    min-height: 125px;
+
+    transition: 0.2s;
+}
+
+
+.kpi-card:hover {
+    border-color: #2a4a52;
+}
+
+
+.kpi-label {
+    display: block;
+
+    color: #687c85;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+}
+
+
+.kpi-value {
+    margin-top: 12px;
+
+    color: #54e6c1;
+
+    font-size: 30px;
+
+    font-weight: 600;
+}
+
+
+.kpi-value.health {
+    color: #54e6c1;
+}
+
+
+.kpi-sub {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #536771;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.panel {
+    background: #071016;
+
+    border: 1px solid #17262e;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    margin-bottom: 18px;
+}
+
+
+.panel-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 13px;
+
+    border-bottom: 1px solid #14232a;
+}
+
+
+.panel-header h2 {
+    font-size: 13px;
+
+    color: #d9e8eb;
+
+    letter-spacing: 1px;
+}
+
+
+.status {
+    color: #54e6c1;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+.panel-description {
+    color: #84949d;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   MAP
+========================================================= */
+
+.mission-map {
+    width: 100%;
+
+    height: 420px;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    border: 1px solid #1a3038;
+}
+
+
+.leaflet-container {
+    background: #081117;
+}
+
+
+/* =========================================================
+   SEARCH / CONTROLS
+========================================================= */
+
+.dsa-controls {
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+
+.dsa-controls input {
+    flex: 1;
+
+    background: #050a0f;
+
+    color: #dce9ec;
+
+    border: 1px solid #1c3038;
+
+    border-radius: 6px;
+
+    padding: 11px 13px;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+
+.dsa-controls input:focus {
+    border-color: #54e6c1;
+}
+
+
+.dsa-controls button,
+.action-button,
+.small-button {
+    background: #0d2428;
+
+    color: #54e6c1;
+
+    border: 1px solid #28534e;
+
+    border-radius: 6px;
+
+    padding: 10px 14px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    letter-spacing: 0.7px;
+
+    transition: 0.2s;
+}
+
+
+.dsa-controls button:hover,
+.action-button:hover,
+.small-button:hover {
+    background: #12343a;
+
+    border-color: #54e6c1;
+}
+
+
+.dsa-result {
+    background: #050a0f;
+
+    border: 1px solid #16272e;
+
+    border-radius: 6px;
+
+    padding: 13px;
+
+    color: #91a3aa;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   MISSION INFO
+========================================================= */
+
+.mission-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+}
+
+
+.mission-grid div {
+    background: #081117;
+
+    border: 1px solid #16272e;
+
+    border-radius: 7px;
+
+    padding: 15px;
+}
+
+
+.mission-grid span {
+    display: block;
+
+    color: #62757e;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 7px;
+}
+
+
+.mission-grid strong {
+    color: #d9e8eb;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   TELEMETRY
+========================================================= */
+
+.telemetry-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 12px;
+}
+
+
+.telemetry-card {
+    background: #081117;
+
+    border: 1px solid #17272f;
+
+    border-radius: 7px;
+
+    padding: 16px;
+}
+
+
+.telemetry-card span {
+    display: block;
+
+    color: #657983;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 8px;
+}
+
+
+.telemetry-card strong {
+    color: #54e6c1;
+
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-container {
+    overflow-x: auto;
+
+    border: 1px solid #17272f;
+
+    border-radius: 7px;
+}
+
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+}
+
+
+thead {
+    background: #0b171d;
+}
+
+
+th {
+    padding: 12px;
+
+    text-align: left;
+
+    color: #62757e;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+
+    border-bottom: 1px solid #1b3038;
+}
+
+
+td {
+    padding: 12px;
+
+    color: #a9b8bd;
+
+    font-size: 11px;
+
+    border-bottom: 1px solid #102027;
+}
+
+
+tbody tr:hover {
+    background: #0a171d;
+}
+
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   API STATUS
+========================================================= */
+
+.api-status {
+    background: #08171b;
+
+    border: 1px solid #19332f;
+
+    border-radius: 6px;
+
+    padding: 10px 13px;
+
+    margin-bottom: 14px;
+
+    color: #54e6c1;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   GROUND STATION LIST
+========================================================= */
+
+.station-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+
+.station-count {
+    grid-column: 1 / -1;
+
+    color: #54e6c1;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    padding-bottom: 5px;
+}
+
+
+.station-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    background: #081117;
+
+    border: 1px solid #17272f;
+
+    border-radius: 7px;
+
+    padding: 13px;
+}
+
+
+.station-item strong {
+    display: block;
+
+    color: #d8e7e9;
+
+    font-size: 12px;
+}
+
+
+.station-item small {
+    display: block;
+
+    color: #61757e;
+
+    margin-top: 4px;
+
+    font-size: 9px;
+}
+
+
+.station-item button {
+    background: transparent;
+
+    color: #d27676;
+
+    border: 1px solid #553333;
+
+    border-radius: 5px;
+
+    padding: 6px 8px;
+
+    cursor: pointer;
+
+    font-size: 8px;
+}
+
+
+.station-item button:hover {
+    background: #30191c;
+}
+
+
+/* =========================================================
+   DSA CARDS
+========================================================= */
+
+.dsa-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+
+.dsa-card {
+    background: #081117;
+
+    border: 1px solid #17272f;
+
+    border-radius: 8px;
+
+    padding: 17px;
+
+    min-height: 150px;
+
+    transition: 0.2s;
+}
+
+
+.dsa-card:hover {
+    border-color: #31534f;
+
+    transform: translateY(-2px);
+}
+
+
+.dsa-icon {
+    font-size: 20px;
+}
+
+
+.dsa-card h3 {
+    color: #d9e8eb;
+
+    font-size: 13px;
+
+    margin-top: 10px;
+}
+
+
+.dsa-card p {
+    color: #6e8189;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+
+    margin-top: 7px;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================================================
+   QUEUE
+========================================================= */
+
+.queue-display {
+    background: #050a0f;
+
+    border: 1px solid #17272f;
+
+    border-radius: 7px;
+
+    padding: 15px;
+
+    color: #9eb0b6;
+
+    font-family: monospace;
+
+    font-size: 11px;
+
+    line-height: 2;
+
+    margin-bottom: 13px;
+}
+
+
+.action-button {
+    width: auto;
+}
+
+
+/* =========================================================
+   EVENT LOG
+========================================================= */
+
+.event-log {
+    background: #050a0f;
+
+    border: 1px solid #17272f;
+
+    border-radius: 7px;
+
+    padding: 13px;
+
+    max-height: 230px;
+
+    overflow-y: auto;
+}
+
+
+.event {
+    padding: 9px 5px;
+
+    color: #82959d;
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+    border-bottom: 1px solid #122128;
+}
+
+
+.event:last-child {
+    border-bottom: none;
+}
+
+
+/* =========================================================
+   BLOOM FILTER
+========================================================= */
+
+.bloom-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-top: 15px;
+}
+
+
+.bloom-info div {
+    background: #081117;
+
+    border: 1px solid #17262e;
+
+    border-radius: 8px;
+
+    padding: 14px;
+}
+
+
+.bloom-info span {
+    display: block;
+
+    color: #84949d;
+
+    font-size: 10px;
+
+    margin-bottom: 6px;
+}
+
+
+.bloom-info strong {
+    color: #54e6c1;
+
+    font-size: 13px;
+}
+
+
+.bloom-heading {
+    margin-top: 22px;
+
+    color: #54e6c1;
+
+    font-size: 13px;
+}
+
+
+.bloom-bits {
+    display: grid;
+
+    grid-template-columns:
+        repeat(10, 1fr);
+
+    gap: 5px;
+
+    margin-top: 10px;
+}
+
+
+.bloom-bit {
+    height: 30px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: #050a0f;
+
+    border: 1px solid #263842;
+
+    border-radius: 4px;
+
+    color: #52636c;
+
+    font-size: 11px;
+}
+
+
+.bloom-bit.active {
+    background: #54e6c1;
+
+    color: #041014;
+
+    border-color: #54e6c1;
+
+    font-weight: bold;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 25px 5px;
+
+    color: #43565f;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .sidebar {
+        position: relative;
+
+        width: 100%;
+
+        height: auto;
+
+        border-right: none;
+
+        border-bottom: 1px solid #17262e;
+    }
+
+
+    .sidebar nav {
+        display: flex;
+
+        overflow-x: auto;
+
+        gap: 5px;
+    }
+
+
+    .nav-item {
+        white-space: nowrap;
+    }
+
+
+    .sidebar-status {
+        display: none;
+    }
+
+
+    .main {
+        margin-left: 0;
+
+        padding: 18px;
+    }
+
+
+    .kpi-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .mission-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .telemetry-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .dsa-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .topbar {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+
+    .topbar h2 {
+        font-size: 21px;
+    }
+
+
+    .kpi-grid {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 8px;
+    }
+
+
+    .kpi-card {
+        padding: 13px;
+
+        min-height: 105px;
+    }
+
+
+    .kpi-value {
+        font-size: 24px;
+    }
+
+
+    .panel {
+        padding: 14px;
+    }
+
+
+    .mission-map {
+        height: 330px;
+    }
+
+
+    .dsa-controls {
+        flex-direction: column;
+    }
+
+
+    .dsa-controls button {
+        width: 100%;
+    }
+
+
+    .mission-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .telemetry-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    .dsa-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .station-list {
+        grid-template-columns: 1fr;
+    }
+
+
+    .bloom-info {
+        grid-template-columns: 1fr;
+    }
+
+
+    .bloom-bits {
+        grid-template-columns:
+            repeat(5, 1fr);
+    }
+
+
+    footer {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+
+}

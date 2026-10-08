@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        SOMAIYASAT — Autonomous Mission Control
+    </title>
+
+    <!-- Leaflet Map -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     SIDEBAR
+========================================================= -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🛰️
+        </div>
+
+        <div>
+
+            <h1>
+                SOMAIYASAT
+            </h1>
+
+            <span>
+                AUTONOMOUS MISSION CONTROL
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <nav>
+
+        <a href="#overview" class="nav-item active">
+            <span>◈</span>
+            Overview
+        </a>
+
+        <a href="#satellite-section" class="nav-item">
+            <span>◉</span>
+            Satellites
+        </a>
+
+        <a href="#telemetry" class="nav-item">
+            <span>⌁</span>
+            Telemetry
+        </a>
+
+        <a href="#routing" class="nav-item">
+            <span>⇄</span>
+            Data Routing
+        </a>
+
+        <a href="#ground-network" class="nav-item">
+            <span>⌖</span>
+            Ground Network
+        </a>
+
+        <a href="#dsa-engine" class="nav-item">
+            <span>▣</span>
+            DSA Engine
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-status">
+
+        <span class="status-dot"></span>
+
+        SYSTEM ONLINE
+
+    </div>
+
+</aside>
+
+
+
+<!-- =========================================================
+     MAIN CONTENT
+========================================================= -->
+
+<main class="main">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div>
+
+            <span class="eyebrow">
+                MISSION CONTROL / ORBITAL DATA SYSTEM
+            </span>
+
+            <h2>
+                Autonomous Mission Control
+            </h2>
+
+        </div>
+
+
+        <div class="mission-status">
+
+            <span class="status-dot"></span>
+
+            LIVE SYSTEM
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         OVERVIEW
+    ====================================================== -->
+
+    <section id="overview">
+
+
+        <!-- KPI CARDS -->
+
+        <div class="kpi-grid">
+
+
+            <!-- SATELLITES -->
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    TRACKED OBJECTS
+                </span>
+
+                <div
+                    class="kpi-value"
+                    id="satelliteCount"
+                >
+                    --
+                </div>
+
+                <span class="kpi-sub">
+                    CelesTrak
+                </span>
+
+            </div>
+
+
+
+            <!-- GROUND STATIONS -->
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    GROUND STATIONS
+                </span>
+
+                <!-- IMPORTANT:
+                     JavaScript updates this number -->
+                <div
+                    class="kpi-value"
+                    id="groundStationCount"
+                >
+                    3
+                </div>
+
+                <span class="kpi-sub">
+                    Communication Nodes
+                </span>
+
+            </div>
+
+
+
+            <!-- QUEUE -->
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    ACTIVE QUEUE
+                </span>
+
+                <div
+                    class="kpi-value"
+                    id="queueCount"
+                >
+                    3
+                </div>
+
+                <span class="kpi-sub">
+                    Data Packets
+                </span>
+
+            </div>
+
+
+
+            <!-- SYSTEM HEALTH -->
+
+            <div class="kpi-card">
+
+                <span class="kpi-label">
+                    SYSTEM HEALTH
+                </span>
+
+                <div class="kpi-value health">
+                    98%
+                </div>
+
+                <span class="kpi-sub">
+                    Nominal
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             LOCATION SEARCH
+        ================================================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    📍 LOCATION & WEATHER
+                </h2>
+
+                <span class="status">
+                    LIVE API
+                </span>
+
+            </div>
+
+
+            <div class="dsa-controls">
+
+                <input
+                    type="text"
+                    id="locationInput"
+                    placeholder="Search city e.g. Mumbai"
+                >
+
+                <button onclick="searchLocation()">
+                    🔍 SEARCH
+                </button>
+
+            </div>
+
+
+            <div
+                id="locationResult"
+                class="dsa-result"
+            >
+                Search a location to view weather conditions.
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAP
+        ================================================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    🌍 GLOBAL GROUND NETWORK
+                </h2>
+
+                <span class="status">
+                    LIVE
+                </span>
+
+            </div>
+
+
+            <div
+                id="map"
+                class="mission-map"
+            ></div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             MISSION INFORMATION
+        ================================================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <h2>
+                    🛰️ MISSION INFORMATION
+                </h2>
+
+            </div>
+
+
+            <div class="mission-grid">
+
+                <div>
+
+                    <span>
+                        MISSION
+                    </span>
+
+                    <strong>
+                        SOMAIYASAT
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        MISSION TYPE
+                    </span>
+
+                    <strong>
+                        PocketQube
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        ORBIT
+                    </span>
+
+                    <strong>
+                        LEO
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        COMMUNICATION
+                    </span>
+
+                    <strong>
+                        Amateur Radio
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TRANSMISSION QUEUE
+    ====================================================== -->
+
+    <section id="routing" class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                📡 TRANSMISSION QUEUE
+            </h2>
+
+            <span class="status">
+                ACTIVE
+            </span>
+
+        </div>
+
+
+        <div
+            id="transmissionQueue"
+            class="queue-display"
+        >
+            Queue Empty
+        </div>
+
+
+        <button
+            onclick="processTransmission()"
+            class="action-button"
+        >
+            PROCESS TRANSMISSION
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TELEMETRY
+    ====================================================== -->
+
+    <section
+        id="telemetry"
+        class="panel"
+    >
+
+        <div class="panel-header">
+
+            <h2>
+                📊 TELEMETRY
+            </h2>
+
+            <span class="status">
+                LIVE
+            </span>
+
+        </div>
+
+
+        <div class="telemetry-grid">
+
+
+            <div class="telemetry-card">
+
+                <span>
+                    SIGNAL
+                </span>
+
+                <strong>
+                    94%
+                </strong>
+
+            </div>
+
+
+            <div class="telemetry-card">
+
+                <span>
+                    POWER
+                </span>
+
+                <strong>
+                    87%
+                </strong>
+
+            </div>
+
+
+            <div class="telemetry-card">
+
+                <span>
+                    TEMPERATURE
+                </span>
+
+                <strong>
+                    24°C
+                </strong>
+
+            </div>
+
+
+            <div class="telemetry-card">
+
+                <span>
+                    DATA RATE
+                </span>
+
+                <strong>
+                    12.4 KB/s
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         LIVE SATELLITE DATA
+    ====================================================== -->
+
+    <section
+        id="satellite-section"
+        class="panel"
+    >
+
+        <div class="panel-header">
+
+            <h2>
+                🛰️ LIVE SATELLITE DATA
+            </h2>
+
+            <span class="status">
+                MISSION DATASET
+            </span>
+
+        </div>
+
+
+        <div
+            id="satellites"
+            class="api-status"
+        >
+            Loading satellite data...
+        </div>
+
+
+        <div class="dsa-controls">
+
+            <input
+                type="text"
+                id="satelliteSearch"
+                placeholder="Search satellite or NORAD ID"
+                onkeyup="filterSatellites()"
+            >
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table id="satelliteTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            OBJECT
+                        </th>
+
+                        <th>
+                            NORAD ID
+                        </th>
+
+                        <th>
+                            INCLINATION
+                        </th>
+
+                        <th>
+                            MEAN MOTION
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="satelliteTableBody"
+                >
+
+                    <tr>
+
+                        <td colspan="5">
+                            Loading...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DYNAMIC GROUND NETWORK
+    ====================================================== -->
+
+    <section
+        id="ground-network"
+        class="panel"
+    >
+
+        <div class="panel-header">
+
+            <h2>
+                🌐 DYNAMIC GROUND NETWORK
+            </h2>
+
+            <span class="status">
+                LIVE
+            </span>
+
+        </div>
+
+
+        <p class="panel-description">
+
+            Add real-world cities as communication stations
+            using Open-Meteo geocoding.
+
+        </p>
+
+
+        <div class="dsa-controls">
+
+            <input
+                type="text"
+                id="stationInput"
+                placeholder="Enter any city to add ground station"
+            >
+
+            <button onclick="addGroundStation()">
+                + ADD STATION
+            </button>
+
+        </div>
+
+
+        <div
+            id="stationResult"
+            class="dsa-result"
+        >
+            Search for a city and add it to the communication network.
+        </div>
+
+
+        <div
+            id="stationList"
+            class="station-list"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DSA ENGINE
+    ====================================================== -->
+
+    <section
+        id="dsa-engine"
+        class="panel"
+    >
+
+        <div class="panel-header">
+
+            <h2>
+                🧠 DSA ENGINE
+            </h2>
+
+            <span class="status">
+                ACTIVE
+            </span>
+
+        </div>
+
+
+        <div class="dsa-grid">
+
+
+        <!-- LINKED LIST -->
+
+        <div class="dsa-card">
+
+            <span class="dsa-icon">
+            🔗
+            </span>
+
+            <h3>
+            Linked List
+            </h3>
+
+            <p>
+        Stores dynamic satellite records.
+    </p>
+
+    <div class="dsa-mini-status">
+        <span>STATUS</span>
+        <strong id="linkedListStatus">ACTIVE</strong>
+    </div>
+
+    <div class="dsa-mini-value">
+        <span>NODES</span>
+        <strong id="linkedListNodes">0</strong>
+    </div>
+
+</div>    
+
+
+            <!-- QUEUE -->
+
+<div class="dsa-card">
+
+    <span class="dsa-icon">
+        📥
+    </span>
+
+    <h3>
+        Queue
+    </h3>
+
+    <p>
+        Manages transmission packets.
+    </p>
+
+    <div class="dsa-mini-status">
+        <span>STATUS</span>
+        <strong>ACTIVE</strong>
+    </div>
+
+    <div class="dsa-mini-value">
+        <span>PACKETS</span>
+        <strong id="queueNodes">0</strong>
+    </div>
+
+</div>
+
+
+            <!-- STACK -->
+
+<div class="dsa-card">
+
+    <span class="dsa-icon">
+        📚
+    </span>
+
+    <h3>
+        Stack
+    </h3>
+
+    <p>
+        Maintains mission event history.
+    </p>
+
+    <div class="dsa-mini-status">
+        <span>STATUS</span>
+        <strong>ACTIVE</strong>
+    </div>
+
+    <div class="dsa-mini-value">
+        <span>EVENTS</span>
+        <strong id="stackEvents">0</strong>
+    </div>
+
+</div>
+
+
+            <!-- PRIORITY QUEUE -->
+
+<div class="dsa-card">
+
+    <span class="dsa-icon">
+        ⚡
+    </span>
+
+    <h3>
+        Priority Queue
+    </h3>
+
+    <p>
+        Prioritizes critical mission packets.
+    </p>
+
+    <div class="dsa-mini-status">
+        <span>STATUS</span>
+        <strong>ACTIVE</strong>
+    </div>
+
+    <div class="dsa-mini-value">
+        <span>PACKETS</span>
+        <strong id="priorityQueuePackets">0</strong>
+    </div>
+
+</div>
+
+
+            <!-- GRAPH -->
+
+<div class="dsa-card">
+
+    <span class="dsa-icon">
+        🌐
+    </span>
+
+    <h3>
+        Graph
+    </h3>
+
+    <p>
+        Represents ground communication network.
+    </p>
+
+    <div class="dsa-mini-status">
+        <span>NODES</span>
+        <strong id="graphNodes">5</strong>
+    </div>
+
+    <div class="dsa-mini-value">
+        <span>TYPE</span>
+        <strong>ADJ MATRIX</strong>
+    </div>
+
+</div>
+
+
+            <!-- BFS -->
+
+            <div class="dsa-card">
+
+                <span class="dsa-icon">
+                    🔍
+                </span>
+
+                <h3>
+                    BFS
+                </h3>
+
+                <p>
+                    Traverses the communication network.
+                </p>
+
+                <button
+                    onclick="runBFS()"
+                    class="small-button"
+                >
+                    RUN BFS
+                </button>
+                <div
+    id="bfsResult"
+    class="dsa-result"
+>
+    Ready for traversal.
+</div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         BLOOM FILTER
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                🧠 BLOOM FILTER — PACKET SCREENING
+            </h2>
+
+            <span class="status">
+                ACTIVE
+            </span>
+
+        </div>
+
+
+        <p class="panel-description">
+
+            Fast memory-efficient checking of previously
+            received mission packets.
+
+        </p>
+
+
+        <div class="dsa-controls">
+
+            <input
+                type="text"
+                id="bloomInput"
+                placeholder="Enter packet ID e.g. TELEMETRY_101"
+            >
+
+            <button onclick="bloomAdd()">
+                + ADD PACKET
+            </button>
+
+            <button onclick="bloomCheck()">
+                🔍 CHECK PACKET
+            </button>
+
+        </div>
+
+
+        <div
+            id="bloomResult"
+            class="dsa-result"
+        >
+            Bloom Filter ready for packet screening.
+        </div>
+
+
+        <div class="bloom-info">
+
+
+            <div>
+
+                <span>
+                    FILTER SIZE
+                </span>
+
+                <strong>
+                    50 BITS
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    HASH FUNCTIONS
+                </span>
+
+                <strong>
+                    3
+                </strong>
+
+            </div>
+
+
+            <div>
+
+                <span>
+                    USE CASE
+                </span>
+
+                <strong>
+                    PACKET SCREENING
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <h3 class="bloom-heading">
+            BIT ARRAY
+        </h3>
+
+
+        <div
+            id="bloomBits"
+            class="bloom-bits"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PRIORITY QUEUE
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                ⚡ PRIORITY QUEUE
+            </h2>
+
+            <span class="status">
+                ACTIVE
+            </span>
+
+        </div>
+
+
+        <div
+            id="priorityQueue"
+            class="queue-display"
+        >
+            Priority Queue Empty
+        </div>
+
+
+        <button
+            onclick="transmitHighestPriorityPacket()"
+            class="action-button"
+        >
+            TRANSMIT HIGHEST PRIORITY
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         EVENT LOG
+    ====================================================== -->
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                📜 MISSION EVENT LOG
+            </h2>
+
+            <span class="status">
+                LIVE
+            </span>
+
+        </div>
+
+
+        <div
+            id="eventLog"
+            class="event-log"
+        >
+            No mission events.
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+        <span>
+            SOMAIYASAT AUTONOMOUS MISSION CONTROL
+        </span>
+
+        <span>
+            DSA MINI PROJECT • C • REAL-TIME APIs
+        </span>
+
+    </footer>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     LEAFLET JS
+========================================================= -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+></script>
+
+
+<!-- =========================================================
+     MAIN JAVASCRIPT
+========================================================= -->
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
