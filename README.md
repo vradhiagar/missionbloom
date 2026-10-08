@@ -249,7 +249,7 @@ MissionBloom/
 ### 1. Clone the repository
 
 ```bash
-git clone <YOUR-GITHUB-REPOSITORY-URL>
+git clone https://github.com/vradhiagar/MissionBloom.git
 ```
 
 ### 2. Navigate to the dashboard
